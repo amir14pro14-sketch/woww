@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<title>Mini App</title>
+
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+<style>
+body {
+    font-family: sans-serif;
+    text-align: center;
+    margin-top: 50px;
+}
+</style>
+</head>
+
+<body>
+
+<h2 id="welcome">در حال بررسی...</h2>
+
+<script>
+/* ❌ اگر از تلگرام باز نشده */
+if (!window.Telegram || !window.Telegram.WebApp) {
+    document.body.innerHTML = "";
+    window.close();
+
+    // اگه بسته نشد (بعضی مرورگرها)
+    setTimeout(() => {
+        document.body.innerHTML = "<h3>این صفحه فقط داخل تلگرام باز می‌شود</h3>";
+    }, 100);
+} else {
+    /* ✅ اگر داخل تلگرامه */
+    const tg = Telegram.WebApp;
+    tg.ready();
+
+    if (tg.initDataUnsafe.user) {
+        const user = tg.initDataUnsafe.user;
+        const name = user.first_name || "دوست من";
+        document.getElementById("welcome").innerText =
+            "خوش اومدی ❤️ " + name;
+    }
+}
+</script>
+
+</body>
+</html>
